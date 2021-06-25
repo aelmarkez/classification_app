@@ -17,7 +17,7 @@ import os
 import numpy as np
 import joblib 
 
-# Memoize the data extraction and memory map the resulting
+# Memorize the data extraction and memory map the resulting
 # train / test splits in readonly mode
 memory = joblib.Memory(os.path.join(get_data_home(),
                 "mnist_benchmark_data"), mmap_mode="r")
