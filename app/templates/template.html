@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Recognizer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        .tools {
+            width: 280px;
+        }
+        .tools button{
+            border: 2px solid black;
+            width: 95px;
+            border-radius: 0px;
+        }
+        body{
+            text-align: center;
+        }
+        .form-control-file{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>NUMBER CLASSIFICATION APP</h1>
+        {% if response %}
+            <p class="alert alert-success m-4 text-center">Le resultat est :{{ response }}</p>
+        {% endif %}
+        <form action="/" method="POST" onsubmit="image()" >
+            <div class="col d-flex justify-content-center">
+                <label> Enter a file path :</label>
+                <input type="file" id="filePath" name="filePath">
+            </div>
+            <button type="submit">result</button>
+          </form>
+
+
+    </div>
+    <script >
+        const image =()=>{
+            document.getElementById(file).value 
+        }
+    </script>        
+</body>
+</html>

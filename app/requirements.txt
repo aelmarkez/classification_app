@@ -1,0 +1,6 @@
+flask
+numpy
+matplotlib
+tensorflow
+joblib
+
