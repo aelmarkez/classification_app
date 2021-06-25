@@ -51,30 +51,6 @@ if __name__ == "__main__":
     X_train, X_test, y_train, y_test = load_data()
     estimator = make_pipeline(
         Nystroem(gamma=0.015, n_components=1000), LinearSVC(C=200))
-    '''    estimator_params = estimator.get_params()
-    estimator.set_params(
-            **{
-                p: args["random_seed"]
-                for p in estimator_params
-                if p.endswith("random_state")
-                }
-                )'''
     estimator.fit(X_train, y_train)
     y_pred = estimator.predict(X_test)
     print(estimator.score(X_test, y_test))
-if __name__ == "__main__":
-    X_train, X_test, y_train, y_test = load_data()
-    estimator = make_pipeline(
-        Nystroem(gamma=0.015, n_components=1000), LinearSVC(C=400))
-    '''    estimator_params = estimator.get_params()
-    estimator.set_params(
-            **{
-                p: args["random_seed"]
-                for p in estimator_params
-                if p.endswith("random_state")
-                }
-                )'''
-    estimator.fit(X_train, y_train)
-    y_pred = estimator.predict(X_test)
-    print(estimator.score(X_test, y_test))
-    joblib.dump(estimator, './models/model.joblib')
