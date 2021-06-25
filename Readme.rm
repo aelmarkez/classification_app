@@ -1,12 +1,12 @@
 
 # Application docker simple permettant la classification de chiffres manuscrits.
 
-le dossier contient 3 dossiers : 
+Ie dossier contient 3 dossiers : 
       *app: contient l'application.
       *models : contient les models utilisés (structure pipeline et reseau de neurones) 
       *src : le code utilisé pour l'apprentissage automatique.
 
-il contient aussi des images de tests. 
+Il contient aussi des images de tests. Il permet également d'afficher le résultat sur l'interface et aussi l'enregistrer dans un fichier JSON.
 
 
 ** Pour installer l'application, il faut executer sur le terminal :**
