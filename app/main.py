@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, jsonify
+from pickle import FALSE
+from flask import Flask, render_template, request
 import numpy as np
-import matplotlib.pyplot as plt
 from tensorflow import keras
 import joblib
 from PIL import Image, ImageFilter
@@ -22,13 +22,13 @@ def render():
 # Handle POST request
 @app.route('/', methods=['POST'])
 def post():
-    flags = 1
+    flags = 0
     img = "/" + request.form['filePath']  # Load image
-    x=image_prepare(img)  
-
+    x=image_prepare(img)
+    assert x.all != False,"Openning image probleme : image_prepare()"  
 
     try:
-        # If we use a pipeline stricture for our model 
+        # If we use a pipeline structure for our model 
         if flags ==0 :
             model = joblib.load('/models/model.joblib')   # Load prebuilt model
             x = x.reshape(1,-1)
@@ -38,19 +38,22 @@ def post():
             model = keras.models.load_model('/models/mnist_classification.h5')  # Load prebuilt model
             prediction = np.argmax(model.predict(x.reshape(1, 28, 28, 1)))
         
-        result_to_json(img,str(prediction)) 
+        assert str(prediction).isdigit()!=False , "Prediction error : model.predict" #test
+        assert result_to_json(img,str(prediction)) != False , "File not found : result_to_json()"  #  test
         return render_template('template.html', response=str(prediction))
     except Exception as e:
         return render_template('template.html', response=str(e))
 
 
 
-
-#prepare the image to suit the model
+#prepare the image to suit the model (reshpe it to (28,28))
 
 def image_prepare(argv):
+    try :
+        im = Image.open(argv).convert('L')  ####
+    except IOError:
+        return FALSE
 
-    im = Image.open(argv).convert('L')
     width = float(im.size[0])
     height = float(im.size[1])
     newImage = Image.new('L', (28, 28), (255))  # creates white canvas of 28x28 pixels
@@ -71,11 +74,13 @@ def image_prepare(argv):
             nwidth = 1
             # resize and sharpen
         img = im.resize((nwidth, 20), Image.ANTIALIAS).filter(ImageFilter.SHARPEN)
-        wleft = int(round(((28 - nwidth) / 2), 0))  # caculate vertical pozition
+        wleft = int(round(((28 - nwidth) / 2), 0))  # caculate vertical position
         newImage.paste(img, (wleft, 4))  # paste resized image on white canvas
     tv = list(newImage.getdata())  # get pixel values
     tva = [(255 - x) * 1.0 / 255.0 for x in tv]    # normalize pixels to 0 and 1. 0 is pure white, 1 is pure black.
     tva = np.array(tva) 
+
+    assert tva.shape != (28,28) ,"shape error : image_prepare()"  # Unit test
     return tva
 
 
@@ -85,6 +90,9 @@ def result_to_json(image,result):
     value = { "imagePath" : image,
             "resultat"  : result
     }
-    f = open("/result_json.json", "w")
+    try :
+        f = open("/result_json.json", "w")
+    except FileNotFoundError:
+        return False
     f.write(json.dumps(value))
     return 

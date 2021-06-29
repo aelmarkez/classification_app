@@ -1,6 +1,7 @@
 flask
 numpy
+sklearn
+joblib
 matplotlib
 tensorflow
-joblib
 

@@ -1,17 +1,11 @@
 from sklearn.datasets import fetch_openml
 from sklearn.datasets import get_data_home
 from sklearn.ensemble import ExtraTreesClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.dummy import DummyClassifier
 from sklearn.kernel_approximation import Nystroem
-from sklearn.kernel_approximation import RBFSampler
-from sklearn.metrics import zero_one_loss
 from sklearn.pipeline import make_pipeline
 from sklearn.svm import LinearSVC
-from sklearn.tree import DecisionTreeClassifier
 from sklearn.utils import check_array
-from sklearn.linear_model import LogisticRegression
-from sklearn.neural_network import MLPClassifier
+
 #from sklearn.externals import joblib
 import os
 import numpy as np
@@ -25,8 +19,6 @@ memory = joblib.Memory(os.path.join(get_data_home(),
 
 @memory.cache
 def load_data(dtype=np.float32, order="F"):
-    """Load the data, then cache and memmap the train/test split"""
-    ######################################################################
     # Load dataset
     print("Loading dataset...\n")
     data = fetch_openml("mnist_784")
