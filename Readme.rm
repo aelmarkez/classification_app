@@ -12,7 +12,7 @@ Il contient aussi des images de tests. Il permet également d'afficher le résul
 ** Pour installer l'application, il faut executer sur le terminal :**
 
 '''sh 
-sudo docker built -t appimage . 
+sudo docker build -t appimage . 
 sudo docker run -p 5000:5000 appimage '''
 
 ** et se connecter sur le port http://172.17.0.2:5000/ sur son navigateur ***
